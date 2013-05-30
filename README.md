@@ -30,22 +30,20 @@ The following *readonly* variables are made available to the importing script:
 * `kernelmajrelease`
 * `kernelrelease`
 * `kernelversion`
-
 * `hardwareisa`
 * `hardwaremodel`
-
 * `operatingsystem`
 * `operatingsystemmajrelease`
 * `operatingsystemrelease`
 * `osfamily`
-
 * `architecture`
-
 * `fqdn`
 * `hostname`
 * `domain`
-
 * `id`
+
+Unlike Puppet Facter, the values for `$kernel`, `$operatingsystem` and `$osfamily`
+are returned in lowercase.
 
 For details of each facts meaning, please refer to the [Puppet Labs Documentation](http://docs.puppetlabs.com/)
 

@@ -86,7 +86,7 @@ fact_hostname () {
   fi
   fact_kernel
 
-  if [ ${kernel} == 'darwin' ] && [ ${kernelrelease} == 'R7' ]; then
+  if [ ${kernel} = 'darwin' ] && [ ${kernelrelease} = 'R7' ]; then
     hostname=`/usr/sbin/scutil --get LocalHostName`
   else
     hostname=`hostname | cut -f1 -d.`
@@ -180,7 +180,7 @@ fact_lsbdistrelease () {
   fi
   fact_kernel
 
-  if [ "${kernel}" == "linux" ] || [ "${kernel}" == "gnu/kfreebsd" ]; then
+  if [ "${kernel}" = "linux" ] || [ "${kernel}" = "gnu/kfreebsd" ]; then
     lsbdistrelease=`lsb_release -r -s 2>/dev/null`
   fi
   readonly lsbdistrelease
@@ -211,7 +211,7 @@ fact_osfamily () {
     'gentoo')
       osfamily="gentoo"
       ;;
-    'Archlinux')
+    'archlinux')
       osfamily="archlinux"
       ;;
     `echo "${operatingsystem}" | grep -i -o -E "mandrake|mandriva"`)
@@ -222,6 +222,7 @@ fact_osfamily () {
       osfamily="${kernel}"
       ;;
   esac
+  osfamily=`lowercase ${osfamily}`
   readonly osfamily
 
   fact_osfamily_run='y'
@@ -361,8 +362,9 @@ fact_lsbdistid () {
   fi
   fact_kernel
 
-  if [ "${kernel}" == "linux" ] || [ "${kernel}" == "gnu/kfreebsd" ]; then
+  if [ "${kernel}" = "linux" ] || [ "${kernel}" = "gnu/kfreebsd" ]; then
     lsbdistid=`lsb_release -i -s 2>/dev/null`
+    lsbdistid=`lowercase ${lsbdistid}`
   fi
   readonly lsbdistid
 
@@ -389,6 +391,7 @@ fact_operatingsystem_kernel_sunos () {
   else
     operatingsystem='Solaris'
   fi
+  operatingsystem=`lowercase ${operatingsystem}`
   readonly operatingsystem
 }
 
@@ -399,7 +402,7 @@ fact_operatingsystem_kernel_linux () {
   fi
   fact_lsbdistid
 
-  if [ '${lsbdistid}' == 'Ubuntu' ]; then
+  if [ '${lsbdistid}' = 'ubuntu' ]; then
     operatingsystem='Ubuntu'
   elif [ -f '/etc/debian_version' ]; then
     operatingsystem='Debian'
@@ -471,7 +474,7 @@ fact_operatingsystem_kernel_linux () {
     operatingsystem='Amazon'
   fi
 
-  operatingsystem=`lowercase "${operatingsystem}"`
+  operatingsystem=`lowercase ${operatingsystem}`
   readonly operatingsystem
 }
 
@@ -488,11 +491,12 @@ fact_operatingsystem () {
     'linux')
       fact_operatingsystem_kernel_linux
       ;;
-    'VMkernel')
-      operatingsystem='ESXi'
+    'vmkernel')
+      operatingsystem='esxi'
       ;;
     *)
       operatingsystem="${kernel}"
+      operatingsystem=`lowercase ${operatingsystem}`
       ;;
   esac
   readonly operatingsystem
@@ -561,25 +565,25 @@ facter () {
 }
 
 facter_display_all () {
-facter
-echo "kernel => ${kernel}"
-echo "kernelmajrelease => ${kernelmajrelease}"
-echo "kernelrelease => ${kernelrelease}"
-echo "kernelversion => ${kernelversion}"
+  facter
+  echo "kernel => ${kernel}"
+  echo "kernelmajrelease => ${kernelmajrelease}"
+  echo "kernelrelease => ${kernelrelease}"
+  echo "kernelversion => ${kernelversion}"
 
-echo "hardwareisa => ${hardwareisa}"
-echo "hardwaremodel => ${hardwaremodel}"
+  echo "hardwareisa => ${hardwareisa}"
+  echo "hardwaremodel => ${hardwaremodel}"
 
-echo "operatingsystem => ${operatingsystem}"
-echo "operatingsystemmajrelease => ${operatingsystemmajrelease}"
-echo "operatingsystemrelease => ${operatingsystemrelease}"
-echo "osfamily => ${osfamily}"
+  echo "operatingsystem => ${operatingsystem}"
+  echo "operatingsystemmajrelease => ${operatingsystemmajrelease}"
+  echo "operatingsystemrelease => ${operatingsystemrelease}"
+  echo "osfamily => ${osfamily}"
 
-echo "architecture => ${architecture}"
+  echo "architecture => ${architecture}"
 
-echo "fqdn => ${fqdn}"
-echo "hostname => ${hostname}"
-echo "domain => ${domain}"
+  echo "fqdn => ${fqdn}"
+  echo "hostname => ${hostname}"
+  echo "domain => ${domain}"
 
-echo "id => ${id}"
+  echo "id => ${id}"
 }
