@@ -277,7 +277,6 @@ fact_operatingsystemrelease () {
         # Return only the major and minor version numbers. This behavior must
         # be preserved for compatibility reasons.
         operatingsystemrelease=`grep -i -o -E "ubuntu [0-9]+.[0-9]+(\.[0-9]+)?" /etc/issue | cut -f2 -d' ' | cut -f1-2 -d'.'`
-      end
       fi
       ;;
     `echo "${operatingsystem}" | grep -i -o -E "sles|sled|opensuse"`)
