@@ -1,6 +1,6 @@
 # Facter-sh
 
-Tested on: CentOS 5.9 (x86_64)
+Tested on: CentOS 5.9 (x86_64), Ubuntu 12.04 (i686) Desktop
 
 
 ## About
