@@ -86,7 +86,7 @@ fact_hostname () {
   fi
   fact_kernel
 
-  if [ ${kernel} = 'darwin' ] && [ ${kernelrelease} = 'R7' ]; then
+  if [ "${kernel}" = 'darwin' ] && [ "${kernelrelease}" = 'R7' ]; then
     hostname=`/usr/sbin/scutil --get LocalHostName`
   else
     hostname=`hostname | cut -f1 -d.`
@@ -110,7 +110,7 @@ fact_domain () {
   # Due to dangerous behavior of 'hostname -f' on old OS, we will explicitly opt-in
   # 'hostname -f' --hkenney May 9, 2012
 
-  can_do_hostname_f=`echo ${kernel} | grep -i -c -E "linux|freebsd|darwin"`
+  can_do_hostname_f=`echo "${kernel}" | grep -i -c -E "linux|freebsd|darwin"`
   if [ ${can_do_hostname_f} -eq 1 ]; then
     domain=`hostname -f | cut -s -f2- -d.`
   else
@@ -402,7 +402,7 @@ fact_operatingsystem_kernel_linux () {
   fi
   fact_lsbdistid
 
-  if [ '${lsbdistid}' = 'ubuntu' ]; then
+  if [ "${lsbdistid}" = 'ubuntu' ]; then
     operatingsystem='Ubuntu'
   elif [ -f '/etc/debian_version' ]; then
     operatingsystem='Debian'
